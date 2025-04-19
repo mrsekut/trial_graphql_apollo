@@ -24,6 +24,16 @@ const app = new Hono();
 
 const yoga = createYoga({
   graphqlEndpoint: '/',
+  cors: {
+    origin: ['http://localhost:3000'],
+    credentials: true,
+  },
+  maskedErrors: {
+    maskError: (error) => {
+      console.error(error);
+      return new Error('Internal Server Error');
+    },
+  },
   fetchAPI: {
     fetch,
     Request,
