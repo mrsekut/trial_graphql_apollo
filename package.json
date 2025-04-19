@@ -4,7 +4,10 @@
   "type": "module",
   "private": true,
   "dependencies": {
+    "@hono/node-server": "^1.14.1",
     "graphql": "^16.10.0",
+    "graphql-yoga": "^5.13.4",
+    "hono": "^4.7.7",
     "valibot": "^1.0.0"
   },
   "devDependencies": {
