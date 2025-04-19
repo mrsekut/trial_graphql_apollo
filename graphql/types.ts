@@ -14,11 +14,26 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type AddBookInput = {
+  author: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+};
+
 export type Book = {
   __typename?: 'Book';
   author: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   title: Scalars['String']['output'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  addBook: Book;
+};
+
+
+export type MutationAddBookArgs = {
+  input: AddBookInput;
 };
 
 export type Query = {
