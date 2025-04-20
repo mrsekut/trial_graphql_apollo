@@ -8,10 +8,13 @@
   "scripts": {
     "dev": "bun --hot src/index.tsx",
     "start": "NODE_ENV=production bun src/index.tsx",
-    "build": "bun run build.ts"
+    "build": "bun run build.ts",
+    "postinstall": "cp patches/rehackt/index.js node_modules/rehackt/index.js"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.8",
     "bun-plugin-tailwind": "^0.0.14",
+    "graphql": "^16.10.0",
     "react": "^19",
     "react-dom": "^19",
     "tailwindcss": "^4.0.6"
