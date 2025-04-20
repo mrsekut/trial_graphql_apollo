@@ -45,6 +45,9 @@ const yoga = createYoga({
 
 app.mount('/graphql', yoga);
 
-serve(app, (info) => {
+serve({
+  fetch: app.fetch,
+  port: 4000
+}, (info) => {
   console.log(`Listening on http://localhost:${info.port}/graphql`);
 });
