@@ -11,5 +11,8 @@
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "@graphql-codegen/near-operation-file-preset": "^3.0.0"
   }
 }

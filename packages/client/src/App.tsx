@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { useGetBooksQuery, useAddBookMutation } from './graphql/types';
 import { useQuery } from '@apollo/client';
 // import { GET_IS_LOGGED_IN } from './graphql/isLoggedIn';
 import { isLoggedInVar } from './state/auth';
+import { useAddBookMutation } from './graphql/addBook.generated';
+import { useGetBooksQuery } from './graphql/books.generated';
 
 function App() {
   const { data, loading, error, refetch } = useGetBooksQuery();
