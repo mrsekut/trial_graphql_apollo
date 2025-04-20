@@ -20,8 +20,6 @@
     "tailwindcss": "^4.0.6"
   },
   "devDependencies": {
-    "@graphql-codegen/typescript-operations": "^4.6.0",
-    "@graphql-codegen/typescript-react-apollo": "^4.3.2",
     "@types/bun": "latest",
     "@types/react": "^19",
     "@types/react-dom": "^19"
