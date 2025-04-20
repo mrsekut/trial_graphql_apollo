@@ -3,12 +3,12 @@ default:
 
 # クライアントの起動
 serve-client:
-  cd client && bun --hot src/index.tsx
+  cd packages/client && bun --hot src/index.tsx
 
 # サーバーの起動
 serve-server:
-  cd server && bun run src/index.ts
+  cd packages/server && bun run src/index.ts
 
 # コード生成
 codegen:
-  cd graphql && bunx graphql-codegen --config codegen.ts
+  cd packages/graphql && bunx graphql-codegen --config codegen.ts
