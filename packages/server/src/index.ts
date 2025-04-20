@@ -19,7 +19,6 @@ const schema = makeExecutableSchema({
   },
 });
 
-// Honoアプリを作成
 const app = new Hono();
 
 const yoga = createYoga({
