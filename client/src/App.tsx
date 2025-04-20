@@ -21,6 +21,17 @@ function App() {
             author,
           },
         },
+        update(cache, { data }) {
+          if (!data?.addBook) return;
+
+          cache.modify({
+            fields: {
+              books(existing = []) {
+                return [...existing, data.addBook];
+              },
+            },
+          });
+        },
       });
 
       // 成功したらリストをリロード
