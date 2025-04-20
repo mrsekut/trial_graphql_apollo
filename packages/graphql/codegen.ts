@@ -1,7 +1,7 @@
 import type { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
-   schema: './schema.graphql',
+   schema: '../server/src/**/*.graphql',
    documents: '../client/src/**/*.ts',
    generates: {
         '../client/src/graphql/types.ts': {
@@ -15,7 +15,13 @@ const config: CodegenConfig = {
                 withHOC: false,
                 withComponent: false,
             }
-        },
+       },
+        '../server/src/graphql/types.ts': {
+           plugins: [
+               'typescript',
+               'typescript-resolvers'
+           ],
+        }
    }
 }
 

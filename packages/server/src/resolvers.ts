@@ -1,13 +1,13 @@
 import * as v from 'valibot';
 import { BookInputSchema } from "./validation";
 import { db } from "./db";
-import type { AddBookInput } from '../../client/src/graphql/types'; // TODO: フロントを見るのはおかしい
+import type { AddBookInput, QueryResolvers, MutationResolvers } from './graphql/types';
 
-export const queryResolvers = {
+export const queryResolvers: QueryResolvers = {
   books: async () => db.getBooks(),
 };
 
-export const mutationResolvers = {
+export const mutationResolvers: MutationResolvers = {
   addBook: async (_: unknown, { input }: { input: AddBookInput }) => {
     const parsed = v.parse(BookInputSchema, input);
 
