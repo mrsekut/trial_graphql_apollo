@@ -1,15 +1,2 @@
-# trial_graphql_modern
-
-To install dependencies:
-
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.2.4. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+https://scrapbox.io/mrsekut-p/2025%2F4%2F19_GraphQL,_Apolloに触れる
+just で諸々を起動したり、codegen したりする
