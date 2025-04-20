@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useGetBooksQuery, useAddBookMutation } from './graphql/types';
 import { useQuery } from '@apollo/client';
-import { GET_IS_LOGGED_IN } from './graphql/isLoggedIn';
+// import { GET_IS_LOGGED_IN } from './graphql/isLoggedIn';
 import { isLoggedInVar } from './state/auth';
 
 function App() {
   const { data, loading, error, refetch } = useGetBooksQuery();
   const [addBook] = useAddBookMutation();
-  const { data: authData } = useQuery(GET_IS_LOGGED_IN);
+  // const { data: authData } = useQuery(GET_IS_LOGGED_IN);
 
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -34,7 +34,7 @@ function App() {
       <h1>Books</h1>
 
       <div>
-        <p>Login Status: {authData?.isLoggedIn ? 'Logged In' : 'Logged Out'}</p>
+        {/* <p>Login Status: {authData?.isLoggedIn ? 'Logged In' : 'Logged Out'}</p> */}
         <button onClick={() => isLoggedInVar(!isLoggedInVar())}>
           Toggle Login State
         </button>
