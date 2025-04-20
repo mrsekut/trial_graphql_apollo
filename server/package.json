@@ -11,12 +11,7 @@
     "valibot": "^1.0.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.5",
-    "@graphql-codegen/typescript": "^4.1.6",
-    "@parcel/watcher": "^2.5.1",
-    "@types/bun": "latest",
-    "@graphql-codegen/typescript-operations": "^4.6.0",
-    "@graphql-codegen/typescript-react-apollo": "^4.3.2"
+    "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"

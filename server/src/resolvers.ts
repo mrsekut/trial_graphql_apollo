@@ -1,7 +1,7 @@
 import * as v from 'valibot';
 import { BookInputSchema } from "./validation";
 import { db } from "./db";
-import type { AddBookInput } from '../graphql/types';
+import type { AddBookInput } from '../../graphql/types';
 
 
 export const queryResolvers = {
