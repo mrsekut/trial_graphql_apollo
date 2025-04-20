@@ -1,22 +1,22 @@
 import "./index.css";
-import { APITester } from "./APITester";
+import { useGetBooksQuery } from "./graphql/types";
 
 export function App() {
+  const { data, loading, error } = useGetBooksQuery();
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
-    <div className="max-w-7xl mx-auto p-8 text-center relative z-10">
-      <div className="flex justify-center items-center gap-8 mb-8">
-
-      </div>
-
-      <h1 className="text-5xl font-bold my-4 leading-tight">Bun + React</h1>
-      <p>
-        Edit{" "}
-        <code className="bg-[#1a1a1a] px-2 py-1 rounded font-mono">
-          src/App.tsx
-        </code>{" "}
-        and save to test HMR
-      </p>
-      <APITester />
+    <div>
+      <h1>Books</h1>
+      <ul>
+        {data?.books.map((book) => (
+          <li key={book.id}>
+            {book.title} / {book.author}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
