@@ -6,9 +6,9 @@
       "dependencies": {
         "@apollo/client": "^3.13.8",
         "bun-plugin-tailwind": "^0.0.14",
-        "graphql": "^16.10.0",
         "react": "^19",
         "react-dom": "^19",
+        "rehackt": "^0.1.0",
         "tailwindcss": "^4.0.6",
       },
       "devDependencies": {

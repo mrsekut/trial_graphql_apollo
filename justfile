@@ -1,14 +1,19 @@
 default:
   @just --choose
 
+install:
+  cd packages/client && bun install
+  cd packages/server && bun install
+  cd packages/graphql && bun install
+
 # クライアントの起動
-serve-client:
+serve-client: install
   cd packages/client && bun --hot src/index.tsx
 
 # サーバーの起動
-serve-server:
-  cd packages/server && bun run src/index.ts
+serve-server: install
+  cd packages/server && bun run index.ts
 
 # コード生成
-codegen:
+codegen: install
   cd packages/graphql && bunx graphql-codegen --config codegen.ts

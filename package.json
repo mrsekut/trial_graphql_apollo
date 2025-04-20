@@ -1,7 +1,0 @@
-{
-  "name": "trial_graphql_apollo",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ]
-}
