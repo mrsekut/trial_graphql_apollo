@@ -1,8 +1,9 @@
 import { createRoot } from "react-dom/client";
-import { App } from "./App";
+import App from "./App";
 import { ApolloClient, InMemoryCache } from "@apollo/client/core";
 import { ApolloProvider } from "@apollo/client/react";
 import { createHttpLink } from "@apollo/client/link/http";
+import { isLoggedInVar } from "./state/auth";
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000/graphql',
@@ -11,7 +12,19 @@ const httpLink = createHttpLink({
 
 const client = new ApolloClient({
   link: httpLink,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          isLoggedIn: {
+            read() {
+              return isLoggedInVar();
+            },
+          },
+        },
+      },
+    },
+  }),
   defaultOptions: {
     watchQuery: {
       fetchPolicy: 'cache-and-network',
