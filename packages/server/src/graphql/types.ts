@@ -24,13 +24,22 @@ export type AddBookInput = {
 export type Book = {
   __typename?: 'Book';
   author: Scalars['String']['output'];
+  createdAt: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  isFavorite: Scalars['Boolean']['output'];
   title: Scalars['String']['output'];
 };
+
+export enum BookFilter {
+  All = 'ALL',
+  Favorite = 'FAVORITE',
+  Recent = 'RECENT'
+}
 
 export type Mutation = {
   __typename?: 'Mutation';
   addBook: Book;
+  toggleFavorite: Book;
 };
 
 
@@ -38,9 +47,19 @@ export type MutationAddBookArgs = {
   input: AddBookInput;
 };
 
+
+export type MutationToggleFavoriteArgs = {
+  id: Scalars['ID']['input'];
+};
+
 export type Query = {
   __typename?: 'Query';
   books: Array<Book>;
+};
+
+
+export type QueryBooksArgs = {
+  filter?: InputMaybe<BookFilter>;
 };
 
 
@@ -116,6 +135,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   AddBookInput: AddBookInput;
   Book: ResolverTypeWrapper<Book>;
+  BookFilter: BookFilter;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -136,17 +156,20 @@ export type ResolversParentTypes = {
 
 export type BookResolvers<ContextType = any, ParentType extends ResolversParentTypes['Book'] = ResolversParentTypes['Book']> = {
   author?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isFavorite?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addBook?: Resolver<ResolversTypes['Book'], ParentType, ContextType, RequireFields<MutationAddBookArgs, 'input'>>;
+  toggleFavorite?: Resolver<ResolversTypes['Book'], ParentType, ContextType, RequireFields<MutationToggleFavoriteArgs, 'id'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  books?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType>;
+  books?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType, Partial<QueryBooksArgs>>;
 };
 
 export type Resolvers<ContextType = any> = {

@@ -22,13 +22,22 @@ export type AddBookInput = {
 export type Book = {
   __typename?: 'Book';
   author: Scalars['String']['output'];
+  createdAt: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  isFavorite: Scalars['Boolean']['output'];
   title: Scalars['String']['output'];
 };
+
+export enum BookFilter {
+  All = 'ALL',
+  Favorite = 'FAVORITE',
+  Recent = 'RECENT'
+}
 
 export type Mutation = {
   __typename?: 'Mutation';
   addBook: Book;
+  toggleFavorite: Book;
 };
 
 
@@ -36,7 +45,17 @@ export type MutationAddBookArgs = {
   input: AddBookInput;
 };
 
+
+export type MutationToggleFavoriteArgs = {
+  id: Scalars['ID']['input'];
+};
+
 export type Query = {
   __typename?: 'Query';
   books: Array<Book>;
+};
+
+
+export type QueryBooksArgs = {
+  filter?: InputMaybe<BookFilter>;
 };

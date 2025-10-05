@@ -2,10 +2,18 @@ type Book {
 	id: ID!
 	title: String!
 	author: String!
+	createdAt: String!
+	isFavorite: Boolean!
+}
+
+enum BookFilter {
+	ALL
+	RECENT
+	FAVORITE
 }
 
 type Query {
-	books: [Book!]!
+	books(filter: BookFilter): [Book!]!
 }
 
 input AddBookInput {
@@ -15,4 +23,5 @@ input AddBookInput {
 
 type Mutation {
 	addBook(input: AddBookInput!): Book!
+	toggleFavorite(id: ID!): Book!
 }
