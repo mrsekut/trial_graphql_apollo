@@ -12,7 +12,7 @@ serve-client: install
 
 # サーバーの起動
 serve-server: install
-  cd packages/server && bun run index.ts
+  cd packages/server && bun run src/index.ts
 
 # コード生成
 codegen: install

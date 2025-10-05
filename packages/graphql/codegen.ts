@@ -2,7 +2,7 @@ import type { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
    schema: '../server/src/**/*.graphql',
-   documents: '../client/src/**/*.ts',
+   documents: ['../client/src/**/*.ts', '!../client/src/**/*.generated.ts'],
    generates: {
         '../client/src/': {
            preset: 'near-operation-file',

@@ -7,8 +7,7 @@ import { Hono } from 'hono';
 import { serve } from '@hono/node-server';
 
 
-// TODO:
-const typeDefs = readFileSync(join(__dirname, '..', '..','graphql', 'schema.graphql'), 'utf8');
+const typeDefs = readFileSync(join(__dirname, 'schema.graphql'), 'utf8');
 
 // schema生成
 const schema = makeExecutableSchema({
