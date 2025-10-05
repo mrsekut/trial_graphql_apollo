@@ -3,18 +3,22 @@ import * as Types from './types';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type GetBooksQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetBooksQueryVariables = Types.Exact<{
+  filter?: Types.InputMaybe<Types.BookFilter>;
+}>;
 
 
-export type GetBooksQuery = { __typename?: 'Query', books: Array<{ __typename?: 'Book', id: string, title: string, author: string }> };
+export type GetBooksQuery = { __typename?: 'Query', books: Array<{ __typename?: 'Book', id: string, title: string, author: string, createdAt: string, isFavorite: boolean }> };
 
 
 export const GetBooksDocument = gql`
-    query GetBooks {
-  books {
+    query GetBooks($filter: BookFilter) {
+  books(filter: $filter) {
     id
     title
     author
+    createdAt
+    isFavorite
   }
 }
     `;
@@ -31,6 +35,7 @@ export const GetBooksDocument = gql`
  * @example
  * const { data, loading, error } = useGetBooksQuery({
  *   variables: {
+ *      filter: // value for 'filter'
  *   },
  * });
  */

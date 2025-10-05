@@ -1,12 +1,12 @@
 import { gql } from '@apollo/client';
 
-export const GET_BOOKS = gql`
-  query GetBooks ($filter: BookFilter) {
-    books(filter: $filter) {
+export const TOGGLE_FAVORITE = gql`
+  mutation ToggleFavorite($id: ID!) {
+    toggleFavorite(id: $id) {
       id
       title
       author
       createdAt
       isFavorite
     }
-}`
+  }`
