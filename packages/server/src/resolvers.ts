@@ -1,11 +1,12 @@
 import * as v from 'valibot';
 import { BookInputSchema } from "./validation";
-import { db, BookFilter } from "./db";
-import type { AddBookInput, QueryResolvers, MutationResolvers } from './graphql/types';
+import { db } from "./db";
+import type { AddBookInput, QueryResolvers, MutationResolvers, BookFilter } from './graphql/types';
 
 export const queryResolvers: QueryResolvers = {
-  books: async (_: unknown, { filter }: { filter?: BookFilter }) => {
-    return db.getBooks(filter);
+  books: async (_, args) => {
+    const filter = args.filter as BookFilter | undefined;
+    return db.getBooks(filter as any);
   },
 };
 

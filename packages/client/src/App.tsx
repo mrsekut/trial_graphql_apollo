@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { useAddBookMutation } from './graphql/addBook.generated';
-import { useGetBooksQuery } from './graphql/books.generated';
+import { GetBooksDocument } from './graphql/books.generated';
+import { BookFilter } from './graphql/types';
+import { TabBar } from './components/TabBar';
+import { BookList } from './components/BookList';
 
 function App() {
-  const { data, loading, error, refetch } = useGetBooksQuery();
+  const [activeTab, setActiveTab] = useState<BookFilter>(BookFilter.All);
+  const [isPending, startTransition] = useTransition();
   const [addBook] = useAddBookMutation();
-
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
 
@@ -17,42 +20,67 @@ function App() {
       variables: {
         input: { title, author },
       },
+      refetchQueries: [
+        { query: GetBooksDocument, variables: { filter: activeTab } },
+        { query: GetBooksDocument, variables: { filter: BookFilter.Recent } }
+      ],
     });
-    await refetch();
+
     setTitle('');
     setAuthor('');
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  const handleTabChange = (tab: BookFilter) => {
+    startTransition(() => {
+      setActiveTab(tab);
+    });
+  };
 
   return (
-    <div>
-      <h1>Books</h1>
+    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+      <h1>📚 Book Library</h1>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Author"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-        />
-        <button type="submit">Add Book</button>
-      </form>
+      <div style={{ marginBottom: '30px', padding: '20px', background: '#f5f5f5', borderRadius: '8px' }}>
+        <h2>本を追加</h2>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '10px' }}>
+          <input
+            type="text"
+            placeholder="タイトル"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            style={{ flex: 1, padding: '8px', borderRadius: '4px', border: '1px solid #ddd' }}
+          />
+          <input
+            type="text"
+            placeholder="著者"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+            style={{ flex: 1, padding: '8px', borderRadius: '4px', border: '1px solid #ddd' }}
+          />
+          <button
+            type="submit"
+            style={{
+              padding: '8px 16px',
+              background: '#007bff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            追加
+          </button>
+        </form>
+      </div>
 
-      <ul>
-        {data?.books.map((book) => (
-          <li key={book.id}>
-            {book.title} / {book.author}
-          </li>
-        ))}
-      </ul>
+      <TabBar
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+      />
+
+      <div style={{ opacity: isPending ? 0.6 : 1, transition: 'opacity 0.3s' }}>
+        <BookList filter={activeTab} />
+      </div>
     </div>
   );
 }
