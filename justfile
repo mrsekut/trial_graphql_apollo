@@ -17,3 +17,11 @@ serve-server: install
 # コード生成
 codegen: install
   cd packages/graphql && bunx graphql-codegen --config codegen.ts
+
+# 型チェック（全体）
+typecheck: install
+  @echo "🔍 Checking client types..."
+  cd packages/client && bunx tsc --noEmit
+  @echo "🔍 Checking server types..."
+  cd packages/server && bunx tsc --noEmit
+  @echo "✅ All type checks passed!"
